@@ -7,7 +7,8 @@ extern Config config;
 void init_agent(void) {
     strcpy(agent.messages[0].role, "system");
     strcpy(agent.messages[0].content, "你是一个有用的AI助手。请始终用中文回复用户。"
-           "如果用户要求操作文件或执行命令，你必须使用 execute_command 工具来完成。");
+           "如果用户要求操作文件或执行命令，你必须使用 execute_command 工具来完成。"
+           "每次执行命令后，你必须详细解释该命令的作用，并逐个参数说明其含义。");
     agent.msg_count = 1;
 }
 
