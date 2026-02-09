@@ -100,16 +100,24 @@ int process_agent(const char* task) {
     if (strstr(resp, "\"tool_calls\"")) {
         if (execute_command(resp)) {
             // 执行后再次请求 API 以获取 AI 的回应
+            printf("\033[90m[调试] 正在请求AI解释命令...\033[0m\n");
             json_request(&agent, &config, req, sizeof(req));
-            http_request(req, resp, sizeof(resp));
+            if (http_request(req, resp, sizeof(resp)) != 0) {
+                printf("\033[31m[错误] 第二次API调用失败\033[0m\n");
+                return -1;
+            }
         }
     }
 
-    if (json_content(resp, content, sizeof(content)) && strlen(content) > 0) {
-        printf("\033[34m%s\033[0m\n", content);
-        strcpy(agent.messages[agent.msg_count].role, "assistant");
-        strncpy(agent.messages[agent.msg_count].content, content, MAX_CONTENT-1);
-        agent.msg_count++;
+    // 提取并显示AI的回复
+    content[0] = '\0';
+    if (json_content(resp, content, sizeof(content))) {
+        if (strlen(content) > 0) {
+            printf("\n\033[34m%s\033[0m\n", content);
+            strcpy(agent.messages[agent.msg_count].role, "assistant");
+            strncpy(agent.messages[agent.msg_count].content, content, MAX_CONTENT-1);
+            agent.msg_count++;
+        }
     }
 
     return 0;
