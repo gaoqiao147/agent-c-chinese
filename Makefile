@@ -6,7 +6,7 @@ SOURCES = main.c json.c agent.c cli.c utils.c
 UNAME := $(shell uname)
 
 # Optimized build flags for smallest size
-CFLAGS_OPT = -std=c99 -D_POSIX_C_SOURCE=200809L -Oz -DNDEBUG \
+CFLAGS_OPT = -std=c99 -D_POSIX_C_SOURCE=200809L -Os -DNDEBUG \
              -ffunction-sections -fdata-sections \
              -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables \
              -fno-math-errno -ffast-math -fmerge-all-constants -flto \

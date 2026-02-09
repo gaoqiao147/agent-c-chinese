@@ -14,6 +14,6 @@ void run_cli(void) {
         char* cmd = trim(input);
         if (!*cmd) continue;
         
-        if (process_agent(cmd)) printf("Failed\n");
+        if (process_agent(cmd)) printf("失败\n");
     }
 }

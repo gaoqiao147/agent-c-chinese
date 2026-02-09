@@ -15,7 +15,7 @@ int main(void) {
     load_config();
     
     if (!config.api_key[0]) {
-        fprintf(stderr, "OR_KEY required\n");
+        fprintf(stderr, "需要设置 OR_KEY 环境变量\n");
         return 1;
     }
     

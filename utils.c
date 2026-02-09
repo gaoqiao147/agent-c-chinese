@@ -25,7 +25,7 @@ int http_request(const char* req, char* resp, size_t resp_size) {
 }
 
 void load_config(void) {
-    strcpy(config.model, "qwen/qwen3-coder");
+    strcpy(config.model, "qwen/qwen3-coder-next");
     config.temp = 0.1;
     config.max_tokens = 1000;
     config.api_key[0] = '\0';
