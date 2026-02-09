@@ -117,7 +117,16 @@ int process_agent(const char* task) {
             strcpy(agent.messages[agent.msg_count].role, "assistant");
             strncpy(agent.messages[agent.msg_count].content, content, MAX_CONTENT-1);
             agent.msg_count++;
+        } else {
+            printf("\033[90m[调试] AI返回了空内容\033[0m\n");
         }
+    } else {
+        printf("\033[90m[调试] 无法从响应中提取content字段\033[0m\n");
+        // 打印响应的前200个字符用于调试
+        char preview[201];
+        strncpy(preview, resp, 200);
+        preview[200] = '\0';
+        printf("\033[90m响应预览: %s...\033[0m\n", preview);
     }
 
     return 0;
